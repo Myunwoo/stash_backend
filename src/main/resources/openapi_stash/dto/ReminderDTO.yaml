@@ -1,0 +1,71 @@
+components:
+  schemas:
+    CreateReminderInDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        time:
+          type: string
+        message:
+          type: string
+
+    CreateReminderOutDTO:
+      type: object
+      properties:
+        reminder_id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        time:
+          type: string
+        message:
+          type: string
+
+    UpdateReminderInDTO:
+      type: object
+      properties:
+        reminder_id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        time:
+          type: string
+        message:
+          type: string
+
+    UpdateReminderOutDTO:
+      type: object
+      properties:
+        reminder_id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        time:
+          type: string
+        message:
+          type: string
+
+    GetReminderOutDTO:
+      type: object
+      properties:
+        reminder_id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        time:
+          type: string
+        message:
+          type: string
+
+    GetReminderListOutDTO:
+      type: object
+      properties:
+        reminderList:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetReminderOutDTO'

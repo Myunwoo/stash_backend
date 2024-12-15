@@ -1,0 +1,44 @@
+spring:
+  messages:
+    basename: messages
+    encoding: UTF-8
+    cache-duration: 3600
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  profiles:
+    active: local
+  application:
+    name: stash
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8080
+  shutdown: graceful
+  tomcat:
+    threads:
+      max: 300
+      min-spare: 10
+
+springdoc:
+  api-docs:
+    version: 'OPENAPI_7_8'
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
+    path: /swagger-ui.html
+    disable-swagger-default-utl: true
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true

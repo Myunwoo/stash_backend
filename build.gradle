@@ -1,0 +1,128 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.4'
+	id 'io.spring.dependency-management' version '1.1.6'
+	id "org.openapi.generator" version "7.8.0"
+}
+
+group = 'com.ihw'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	all {
+		exclude group: 'org.slf4j', module: 'slf4j-simple'
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'io.github.cdimascio:dotenv-java:3.0.2'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:1.4.6'
+	// h2 db
+	runtimeOnly 'com.h2database:h2'
+	// rds db
+	runtimeOnly 'mysql:mysql-connector-java:8.0.33'
+	// 기본 의존성 정보
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'org.slf4j:slf4j-simple:2.0.16'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// spring security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.security:spring-security-core'
+	implementation 'org.springframework.security:spring-security-config'
+	implementation 'org.springframework.security:spring-security-web'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation 'javax.xml.bind:jaxb-api:2.3.1'
+	implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
+
+
+	// springdoc-openapi 적용 정보 (Swagger 적용을 위한 정보)
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
+	implementation 'io.swagger.core.v3:swagger-annotations-jakarta:2.2.11'
+
+	// openapi generator 적용을 위한 정보
+	implementation 'org.openapitools:openapi-generator:5.1.1'
+	implementation 'org.openapitools:openapi-generator-gradle-plugin:5.1.1'
+	implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+	implementation 'javax.validation:validation-api:2.0.1.Final'
+	implementation 'javax.annotation:javax.annotation-api:1.3.2'
+	implementation 'javax.servlet:javax.servlet-api:4.0.1'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
+
+	// mapper - Entity와 INDTO, OUTDTO를 분리 관리하고자 추가함
+	implementation 'org.modelmapper:modelmapper:3.1.1'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+def stashSwaggerMap = [
+        "stash" : "stash.yaml",
+		"auth" : "auth.yaml"
+]
+
+stashSwaggerMap.each { entry ->
+	tasks.register("opnApiGenerate-stash-${entry.key}", org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+		generatorName.set("spring")
+		importMappings = [
+				'PageInfo': 'com.github.pagehelper.PageInfo'
+		]
+		inputSpec.set("$rootDir/src/main/resources/openapi_stash/${entry.value}")
+		outputDir.set(project.file("$buildDir/generated-sources").absolutePath)
+		apiPackage.set("com.ihw.stash.adapter.in.${entry.key}.web")
+		modelPackage.set("com.ihw.stash.adapter.in.${entry.key}.dto")
+		configOptions.set(
+				[
+						interfaceOnly         : "true",
+						useBeanValidation     : "true",
+						performBeanValidation : "true",
+						serializableModel     : "true",
+						sourceFolder          : "/java",
+						implFolder            : "/java",
+						unhandledException    : "true",
+						useTags               : "true",
+				]
+		)
+	}
+}
+
+
+tasks.register("openApiGenerateStashServer") {
+	dependsOn stashSwaggerMap.collect { "opnApiGenerate-stash-${it.key}" }
+}
+
+tasks.register("openApiGenerateAll") {
+	dependsOn("openApiGenerateStashServer")
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = ["src/main/java", "build/generated-sources/java"]
+		}
+	}
+}
+
+
+compileJava.dependsOn(tasks.openApiGenerateAll)
+

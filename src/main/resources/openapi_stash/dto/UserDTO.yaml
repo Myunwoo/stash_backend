@@ -1,0 +1,71 @@
+components:
+  schemas:
+    GetUserInDTO:
+      type: object
+      properties:
+        username:
+          type: string
+
+    GetUserOutDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        name:
+          type: string
+
+    CreateUserInDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+
+    CreateUserOutDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        name:
+          type: string
+
+    UpdateUserInDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+
+    UpdateUserOutDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        name:
+          type: string
+
+    LoginInDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+
+    RefreshInDTO:
+      type: object
+      properties:
+        srt:
+          type: string
+
+    RefreshOutDTO:
+      type: object
+      properties:
+        sat:
+          type: string

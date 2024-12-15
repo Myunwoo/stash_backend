@@ -1,0 +1,236 @@
+openapi: 3.0.0
+info:
+  title: Stash FO api
+  version: 1.0.0
+  description: Stash FO api
+
+servers:
+  - url: http://localhost:8080
+
+tags:
+  - name: stash-controller
+    description: Stash api controller
+
+paths:
+  /getStashDetail:
+    get:
+      tags:
+        - stash-controller
+      summary: API_STS_2001, Stash 상세 조회
+      description: Stash 상세 조회
+      operationId: getStashDetail
+      parameters:
+        - name: stashId
+          in: query
+          description: stash 아이디
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 조회성공
+          content:
+            application/json:
+              schema:
+                $ref: './dto/StashDTO.yaml#/components/schemas/StashDetailOutDTO'
+        '400':
+          description: Invalid status value
+
+  /getStashList:
+    get:
+      tags:
+        - stash-controller
+      summary: API_STS_2002, Stash 목록 조회
+      description: Stash 목록 조회
+      operationId: getStashList
+      responses:
+        '200':
+          description: 조회성공
+          content:
+            application/json:
+              schema:
+                $ref: './dto/StashDTO.yaml#/components/schemas/StashListDTO'
+        '400':
+          description: Invalid status value
+
+  /getReminder:
+    get:
+      tags:
+        - stash-controller
+      summary: API_STS_2004, 알림 조회
+      description: 알림 조회
+      operationId: getReminder
+      parameters:
+        - name: reminderId
+          in: query
+          description: reminder 아이디
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 조회성공
+          content:
+            application/json:
+              schema:
+                $ref: './dto/ReminderDTO.yaml#/components/schemas/GetReminderOutDTO'
+        '400':
+          description: Invalid status value
+
+  /getReminderList:
+    get:
+      tags:
+        - stash-controller
+      summary: API_STS_2005, 알림 리스트 조회
+      description: 알림 리스트 조회
+      operationId: getReminderList
+      responses:
+        '200':
+          description: 조회성공
+          content:
+            application/json:
+              schema:
+                $ref: './dto/ReminderDTO.yaml#/components/schemas/GetReminderListOutDTO'
+        '400':
+          description: Invalid status value
+
+  /createStash:
+    post:
+      tags:
+        - stash-controller
+      summary: API_STS_2101, Stash 생성
+      description: Stash 생성
+      operationId: createStash
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './dto/StashDTO.yaml#/components/schemas/CreateStashInDTO'
+      responses:
+        '200':
+          description: 조회성공
+          content:
+            application/json:
+              schema:
+                $ref: './dto/StashDTO.yaml#/components/schemas/StashDetailOutDTO'
+        '400':
+          description: Invalid status value
+
+  /createReminder:
+    post:
+      tags:
+        - stash-controller
+      summary: API_STS_2102, Reminder 생성
+      description: Reminder 생성
+      operationId: createReminder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './dto/ReminderDTO.yaml#/components/schemas/CreateReminderInDTO'
+      responses:
+        '200':
+          description: 조회성공
+          content:
+            application/json:
+              schema:
+                $ref: './dto/ReminderDTO.yaml#/components/schemas/CreateReminderOutDTO'
+        '400':
+          description: Invalid status value
+
+  /updateStash:
+    post:
+      tags:
+        - stash-controller
+      summary: API_STS_2201, Stash 수정
+      description: Stash 수정
+      operationId: updateStash
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './dto/StashDTO.yaml#/components/schemas/UpdateStashInDTO'
+      responses:
+        '200':
+          description: 수정성공
+          content:
+            application/json:
+              schema:
+                $ref: './dto/StashDTO.yaml#/components/schemas/StashDetailOutDTO'
+        '400':
+          description: Invalid status value
+
+  /updateReminder:
+    post:
+      tags:
+        - stash-controller
+      summary: API_STS_2202, Reminder 수정
+      description: Reminder 수정
+      operationId: updateReminder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './dto/ReminderDTO.yaml#/components/schemas/UpdateReminderInDTO'
+      responses:
+        '200':
+          description: 수정성공
+          content:
+            application/json:
+              schema:
+                $ref: './dto/ReminderDTO.yaml#/components/schemas/UpdateReminderOutDTO'
+        '400':
+          description: Invalid status value
+
+  /deleteStash:
+    get:
+      tags:
+        - stash-controller
+      summary: API_STS_2301, Stash 삭제
+      description: Stash 삭제
+      operationId: deleteStash
+      parameters:
+        - name: stashId
+          in: query
+          description: stash 아이디
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 삭제성공
+        '400':
+          description: Invalid status value
+
+  /deleteReminder:
+    get:
+      tags:
+        - stash-controller
+      summary: API_STS_2302, Reminder 삭제
+      description: Reminder 삭제
+      operationId: deleteReminder
+      parameters:
+        - name: reminderId
+          in: query
+          description: reminder 아이디
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 삭제성공
+        '400':
+          description: Invalid status value
+
+components:
+  schemas:
+    Stash:
+      $ref: './entity/StashEntity.yaml#/components/schemas/Stash'
+    Reminder:
+      $ref: './entity/ReminderEntity.yaml#/components/schemas/Reminder'
+    User:
+      $ref: './entity/UserEntity.yaml#/components/schemas/User'

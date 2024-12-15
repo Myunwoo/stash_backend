@@ -1,0 +1,20 @@
+components:
+  schemas:
+    Reminder:
+      type: object
+      x-class-extra-annotation: "@jakarta.persistence.Entity"
+      required:
+        - reminder_id
+      properties:
+        reminder_id:
+          type: integer
+          format: int64
+          x-field-extra-annotation: |
+            @jakarta.persistence.Id
+            @jakarta.persistence.GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+        username:
+          type: string
+        time:
+          type: string
+        message:
+          type: string

@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Stash FO api
+  version: 1.0.0
+  description: Stash FO api
+
+servers:
+  - url: http://localhost:8080
+
+tags:
+  - name: auth-controller
+    description: Auth api controller
+
+paths:
+  /auth/getUser:
+    post:
+      tags:
+        - auth-controller
+      summary: API_STS_1001, 회원 정보 조회
+      description: 회원 정보 조회
+      operationId: getUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './dto/UserDTO.yaml#/components/schemas/GetUserInDTO'
+      responses:
+        '200':
+          description: 로그인 성공
+          content:
+            application/json:
+              schema:
+                $ref: './dto/UserDTO.yaml#/components/schemas/GetUserOutDTO'
+        '400':
+          description: Invalid status value
+
+  /auth/login:
+    post:
+      tags:
+        - auth-controller
+      summary: API_STS_1103, 로그인
+      description: 로그인
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './dto/UserDTO.yaml#/components/schemas/LoginInDTO'
+      responses:
+        '200':
+          description: 로그인 성공
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "login success temp message"
+        '400':
+          description: Invalid status value
+
+  /auth/refresh:
+    post:
+      tags:
+        - auth-controller
+      summary: API_STS_1104, 액세스 토큰 재발급
+      description: 액세스 토큰 재발급
+      operationId: refresh
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './dto/UserDTO.yaml#/components/schemas/RefreshInDTO'
+      responses:
+        '200':
+          description: 액세스 토큰 재발급 성공
+          content:
+            application/json:
+              schema:
+                $ref: './dto/UserDTO.yaml#/components/schemas/RefreshOutDTO'
+        '400':
+          description: Invalid status value
+
+  /auth/createUser:
+    post:
+      tags:
+        - auth-controller
+      summary: API_STS_1101, 회원 정보 생성
+      description: 회원 정보 생성
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './dto/UserDTO.yaml#/components/schemas/CreateUserInDTO'
+      responses:
+        '200':
+          description: 조회성공
+          content:
+            application/json:
+              schema:
+                $ref: './dto/UserDTO.yaml#/components/schemas/CreateUserOutDTO'
+        '400':
+          description: Invalid status value
+
+  /auth/updateUser:
+    post:
+      tags:
+        - auth-controller
+      summary: API_STS_1102, 회원 정보 수정
+      description: 회원 정보 수정
+      operationId: updateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './dto/UserDTO.yaml#/components/schemas/UpdateUserInDTO'
+      responses:
+        '200':
+          description: 조회성공
+          content:
+            application/json:
+              schema:
+                $ref: './dto/UserDTO.yaml#/components/schemas/UpdateUserOutDTO'
+        '400':
+          description: Invalid status value

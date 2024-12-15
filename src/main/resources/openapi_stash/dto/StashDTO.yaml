@@ -1,0 +1,84 @@
+
+components:
+  schemas:
+    CreateStashInDTO:
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        start_time:
+          type: string
+        end_time:
+          type: string
+
+    UpdateStashInDTO:
+      type: object
+      required:
+        - stash_id
+        - title
+      properties:
+        stash_id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        description:
+          type: string
+        start_time:
+          type: string
+        end_time:
+          type: string
+
+    StashDetailOutDTO:
+      type: object
+      required:
+        - stash_id
+        - username
+        - title
+      properties:
+        stash_id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        start_time:
+          type: string
+        end_time:
+          type: string
+
+    StashListDTO:
+      type: object
+      properties:
+        stashDtlList:
+          type: array
+          items:
+            $ref: '#/components/schemas/StashDetailOutDTO'
+
+    SharedStashDTO:
+      type: object
+      properties:
+        shared_stash_id:
+          type: integer
+          format: int64
+        stash_id:
+          type: integer
+          format: int64
+        shared_with_username:
+          type: integer
+          format: int64
+
+    SharedStashListDTO:
+      type: object
+      properties:
+        sharedStashDtlList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SharedStashDTO'

@@ -1,0 +1,24 @@
+components:
+  schemas:
+    User:
+      type: object
+      x-class-extra-annotation: "@jakarta.persistence.Entity"
+      required:
+        - id
+        - username
+        - password
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-field-extra-annotation: |
+            @jakarta.persistence.Id
+            @jakarta.persistence.GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+        username:
+          type: string
+          x-field-extra-annotation: "@jakarta.persistence.Column(unique = true)"
+        password:
+          type: string
+        name:
+          type: string
