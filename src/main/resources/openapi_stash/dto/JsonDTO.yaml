@@ -12,12 +12,6 @@ components:
           type: string
         username:
           type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
 
     UpdateJsonInDTO:
       type: object
@@ -56,12 +50,6 @@ components:
           type: string
         username:
           type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
 
     JsonListDTO:
       type: object
