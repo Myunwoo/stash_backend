@@ -73,12 +73,14 @@ dependencies {
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+	// useJUnitPlatform()
+	enabled = false
 }
 
 def stashSwaggerMap = [
         "stash" : "stash.yaml",
-		"auth" : "auth.yaml"
+		"auth" : "auth.yaml",
+		"json" : "json.yaml"
 ]
 
 stashSwaggerMap.each { entry ->

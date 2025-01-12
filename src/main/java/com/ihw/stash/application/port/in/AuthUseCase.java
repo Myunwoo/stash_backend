@@ -1,7 +1,6 @@
 package com.ihw.stash.application.port.in;
 
 import com.ihw.stash.adapter.in.auth.dto.*;
-import com.ihw.stash.adapter.in.stash.dto.User;
 import org.springframework.http.ResponseEntity;
 
 public interface AuthUseCase {

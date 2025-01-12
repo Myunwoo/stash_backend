@@ -38,7 +38,7 @@ paths:
     post:
       tags:
         - auth-controller
-      summary: API_STS_1103, 로그인
+      summary: API_STS_1002, 로그인
       description: 로그인
       operationId: login
       requestBody:
@@ -61,7 +61,7 @@ paths:
     post:
       tags:
         - auth-controller
-      summary: API_STS_1104, 액세스 토큰 재발급
+      summary: API_STS_1003, 액세스 토큰 재발급
       description: 액세스 토큰 재발급
       operationId: refresh
       requestBody:
@@ -83,7 +83,7 @@ paths:
     post:
       tags:
         - auth-controller
-      summary: API_STS_1101, 회원 정보 생성
+      summary: API_STS_1004, 회원 정보 생성
       description: 회원 정보 생성
       operationId: createUser
       requestBody:
@@ -105,7 +105,7 @@ paths:
     post:
       tags:
         - auth-controller
-      summary: API_STS_1102, 회원 정보 수정
+      summary: API_STS_1005, 회원 정보 수정
       description: 회원 정보 수정
       operationId: updateUser
       requestBody:
@@ -122,3 +122,8 @@ paths:
                 $ref: './dto/UserDTO.yaml#/components/schemas/UpdateUserOutDTO'
         '400':
           description: Invalid status value
+
+components:
+  schemas:
+    User:
+      $ref: './entity/UserEntity.yaml#/components/schemas/User'

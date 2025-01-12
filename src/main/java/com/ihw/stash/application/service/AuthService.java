@@ -1,7 +1,6 @@
 package com.ihw.stash.application.service;
 
 import com.ihw.stash.adapter.in.auth.dto.*;
-import com.ihw.stash.adapter.in.stash.dto.User;
 import com.ihw.stash.adapter.out.persistence.UserRepository;
 import com.ihw.stash.application.port.in.AuthUseCase;
 import com.ihw.stash.common.advice.StashException;
@@ -11,7 +10,6 @@ import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ObjectUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
@@ -66,7 +64,8 @@ public class AuthService implements AuthUseCase {
         User existingUser = userRepository.findByUsername(updateUserInDTO.getUsername())
                 .orElseThrow(() -> new StashException(messageUtil.getFormattedMessage("MSG0004")));
 
-        modelMapper.map(updateUserInDTO, existingUser);
+        existingUser.setName(updateUserInDTO.getName());
+        existingUser.setUsername(updateUserInDTO.getUsername());
         if (updateUserInDTO.getPassword() != null && !updateUserInDTO.getPassword().isEmpty()) {
             existingUser.setPassword(passwordEncoder.encode(updateUserInDTO.getPassword()));
         }

@@ -1,0 +1,29 @@
+components:
+  schemas:
+    JsonData:
+      type: object
+      x-class-extra-annotation: "@jakarta.persistence.Entity"
+      required:
+        - json_id
+        - username
+        - title
+        - json_content
+      properties:
+        json_id:
+          type: integer
+          format: int64
+          x-field-extra-annotation: |
+            @jakarta.persistence.Id
+            @jakarta.persistence.GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+        username:
+          type: string
+          x-field-extra-annotation: |
+            @jakarta.persistence.Column(nullable = false, length = 255)
+        title:
+          type: string
+          x-field-extra-annotation: |
+            @jakarta.persistence.Column(nullable = false, length = 255)
+        json_content:
+          type: string
+          x-field-extra-annotation: |
+            @jakarta.persistence.Column(nullable = false, columnDefinition = "TEXT")

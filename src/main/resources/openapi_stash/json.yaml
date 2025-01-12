@@ -1,0 +1,125 @@
+openapi: 3.0.0
+info:
+  title: JSON Data API
+  version: 1.0.0
+  description: API for managing JSON data.
+
+servers:
+  - url: http://localhost:8080
+
+tags:
+  - name: json-controller
+    description: JSON Data API controller
+
+paths:
+  /getJsonDetail:
+    get:
+      tags:
+        - json-controller
+      summary: API_STS_3001, JSON 상세 조회
+      description: JSON 상세 조회
+      operationId: getJsonDetail
+      parameters:
+        - name: id
+          in: query
+          description: JSON 데이터의 ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 조회 성공
+          content:
+            application/json:
+              schema:
+                $ref: './dto/JsonDTO.yaml#/components/schemas/JsonDetailOutDTO'
+        '400':
+          description: Invalid status value
+
+  /getJsonList:
+    get:
+      tags:
+        - json-controller
+      summary: API_JSON_1002, JSON 목록 조회
+      description: 저장된 모든 JSON 데이터 조회
+      operationId: getJsonList
+      responses:
+        '200':
+          description: 조회 성공
+          content:
+            application/json:
+              schema:
+                $ref: './dto/JsonDTO.yaml#/components/schemas/JsonListDTO'
+        '400':
+          description: Invalid status value
+
+  /createJson:
+    post:
+      tags:
+        - json-controller
+      summary: API_JSON_1101, JSON 데이터 생성
+      description: 새로운 JSON 데이터를 생성합니다.
+      operationId: createJson
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './dto/JsonDTO.yaml#/components/schemas/CreateJsonInDTO'
+      responses:
+        '200':
+          description: 생성 성공
+          content:
+            application/json:
+              schema:
+                $ref: './dto/JsonDTO.yaml#/components/schemas/JsonDetailOutDTO'
+        '400':
+          description: Invalid status value
+
+  /updateJson:
+    post:
+      tags:
+        - json-controller
+      summary: API_JSON_1201, JSON 데이터 수정
+      description: 기존 JSON 데이터를 수정합니다.
+      operationId: updateJson
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './dto/JsonDTO.yaml#/components/schemas/UpdateJsonInDTO'
+      responses:
+        '200':
+          description: 수정 성공
+          content:
+            application/json:
+              schema:
+                $ref: './dto/JsonDTO.yaml#/components/schemas/JsonDetailOutDTO'
+        '400':
+          description: Invalid status value
+
+  /deleteJson:
+    delete:
+      tags:
+        - json-controller
+      summary: API_JSON_1301, JSON 데이터 삭제
+      description: 특정 ID의 JSON 데이터를 삭제합니다.
+      operationId: deleteJson
+      parameters:
+        - name: id
+          in: query
+          description: JSON 데이터의 ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 삭제 성공
+        '400':
+          description: Invalid status value
+
+components:
+  schemas:
+    JsonData:
+      $ref: './entity/JsonEntity.yaml#/components/schemas/JsonData'

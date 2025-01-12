@@ -1,0 +1,60 @@
+components:
+  schemas:
+    CreateJsonInDTO:
+      type: object
+      required:
+        - title
+        - json_content
+      properties:
+        title:
+          type: string
+        json_content:
+          type: string
+        username:
+          type: string
+
+    UpdateJsonInDTO:
+      type: object
+      required:
+        - id
+        - title
+        - json_content
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        json_content:
+          type: string
+        username:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+
+    JsonDetailOutDTO:
+      type: object
+      required:
+        - id
+        - title
+        - json_content
+        - username
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        json_content:
+          type: string
+        username:
+          type: string
+
+    JsonListDTO:
+      type: object
+      properties:
+        jsonDtlList:
+          type: array
+          items:
+            $ref: '#/components/schemas/JsonDetailOutDTO'
