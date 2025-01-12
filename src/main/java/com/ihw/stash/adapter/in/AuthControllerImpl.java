@@ -2,12 +2,9 @@ package com.ihw.stash.adapter.in;
 
 import com.ihw.stash.adapter.in.auth.dto.*;
 import com.ihw.stash.adapter.in.auth.web.AuthControllerApi;
-import com.ihw.stash.adapter.in.stash.dto.Stash;
-import com.ihw.stash.adapter.in.stash.dto.User;
 import com.ihw.stash.application.port.in.AuthUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +22,6 @@ public class AuthControllerImpl implements AuthControllerApi {
 
     @Override
     public ResponseEntity<String> login(LoginInDTO loginInDTO) throws Exception {
-        log.info("로그인 요청: 사용자명 = {}", loginInDTO.getUsername());
         return authUseCase.login(loginInDTO);
     }
 

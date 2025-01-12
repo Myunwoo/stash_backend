@@ -9,19 +9,9 @@ public interface StashUseCase {
 
     public StashDetailOutDTO createStash(CreateStashInDTO stashDetailInDTO);
 
-    public CreateReminderOutDTO createReminder(CreateReminderInDTO createReminderInDTO);
-
     public StashDetailOutDTO getStashDetail(Long stashId);
-
-    public GetReminderOutDTO getReminder(Long reminderId);
-
-    public GetReminderListOutDTO getReminderList();
 
     public StashDetailOutDTO updateStash(UpdateStashInDTO updateStashInDTO);
 
     public void deleteStash(Long stashId);
-
-    public UpdateReminderOutDTO updateReminder(UpdateReminderInDTO updateReminderInDTO);
-
-    public void deleteReminder(Long reminderId);
 }

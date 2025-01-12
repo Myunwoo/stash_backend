@@ -1,7 +1,6 @@
 package com.ihw.stash.application.service;
-import com.ihw.stash.adapter.in.stash.dto.User;
+import com.ihw.stash.adapter.in.auth.dto.User;
 import com.ihw.stash.adapter.out.persistence.UserRepository;
-import com.ihw.stash.common.advice.StashException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
