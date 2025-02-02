@@ -10,7 +10,11 @@ public class StashApplication {
 	public static void main(String[] args) {
 		// .env 파일 로드
 		Dotenv dotenv = Dotenv.configure().directory("./").ignoreIfMissing().load();
-
+		System.out.println("DB_HOST " + dotenv.get("DB_HOST"));
+		System.out.println("DB_PORT " + dotenv.get("DB_PORT"));
+		System.out.println("DB_NAME " + dotenv.get("DB_NAME"));
+		System.out.println("DB_USERNAME " + dotenv.get("DB_USERNAME"));
+		System.out.println("DB_PASSWORD " + dotenv.get("DB_PASSWORD"));
 		// 시스템 환경 변수에 추가
 		System.setProperty("DB_HOST", dotenv.get("DB_HOST"));
 		System.setProperty("DB_PORT", dotenv.get("DB_PORT"));
