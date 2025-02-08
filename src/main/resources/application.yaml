@@ -13,6 +13,7 @@ spring:
   application:
     name: stash
   jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: update
     show-sql: true
